@@ -1,0 +1,44 @@
+# Create and Install Debian VM:
+   - Follow the Proxmox GUI steps to create and install a Debian VM.
+
+# Install the GNOME desktop environment
+sudo apt-get install task-gnome-desktop
+
+# Update the system and install NVIDIA drivers
+sudo apt-get update
+sudo apt-get install nvidia-driver
+
+# Update the system and install NVIDIA drivers
+sudo apt-get update
+sudo apt-get install nvidia-driver
+
+# Create the Xorg configuration file at /etc/X11/xorg.conf
+Section "Device"
+    Identifier "Device0"
+    Driver "nvidia"
+    VendorName "NVIDIA Corporation"
+    BusID "PCI:0:10:0"
+EndSection
+
+
+# Purge existing drivers
+sudo apt-get remove --purge '^nvidia-.*'
+sudo apt-get autoremove
+sudo apt-get autoclean
+
+# Install dependencies
+sudo apt-get install build-essential dkms
+
+# Add repository and install drivers
+sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt-get update
+sudo apt-get install nvidia-driver-535
+sudo update-initramfs -u
+sudo reboot
+
+# Blacklist Drivers
+sudo bash -c "echo 'blacklist nouveau' > /etc/modprobe.d/blacklist-nouveau.conf"
+sudo bash -c "echo 'options nouveau modeset=0' >> /etc/modprobe.d/blacklist-nouveau.conf"
+sudo update-initramfs -u
+sudo reboot
+
