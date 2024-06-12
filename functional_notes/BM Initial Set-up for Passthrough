@@ -16,39 +16,41 @@ nano /etc/default/grub
 GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on"
 update-grub
 reboot
-
+----------------------------------------------------------------------
 Install Necessary Packages:
 Update and upgrade the system: apt update && apt full-upgrade -y
 Install sudo, xrdp, openssh-server, and ufw.
 
 # Install Packages
+apt update && apt full-upgrade -y
 apt install sudo xrdp openssh-server ufw -y
 
-
+----------------------------------------------------------------------
 Configure Firewall:
 Enable ufw and allow necessary ports for SSH and RDP.
 ufw allow 22/tcp
 ufw allow 3389/tcp
 ufw enable
-
-GPU Passthrough Setup:
-Identify and isolate GPU for passthrough
-Bind GPU to vfio-pci.
-Add GPU to VM configuration.
-        
-# GPU Passthrough Setup
+----------------------------------------------------------------------
+# Identify and Isolate GPU
 lspci -nn
+
+# Load VFIO Modules
 nano /etc/modules
 vfio
 vfio_iommu_type1
 vfio_pci
 vfio_virqfd
+
+# Create VFIO Configuration
 nano /etc/modprobe.d/vfio.conf
 options vfio-pci ids=10de:1b80,10de:10f0
 update-initramfs -u
 reboot
 
-----------------------------------------------
+
+
+----------------------------------------------------------------------
 GPU/NVIDIA Specific
 # Update the system and install NVIDIA drivers
 sudo apt-get update
@@ -87,8 +89,7 @@ sudo bash -c "echo 'blacklist nouveau' > /etc/modprobe.d/blacklist-nouveau.conf"
 sudo bash -c "echo 'options nouveau modeset=0' >> /etc/modprobe.d/blacklist-nouveau.conf"
 sudo update-initramfs -u
 sudo reboot
-
--------------------------------------------------------
+----------------------------------------------------------------------
 
 Add GPU to the VM through webGUI or BM Shell 
 # VM Configuration
