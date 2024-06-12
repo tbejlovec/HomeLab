@@ -1,0 +1,28 @@
+# Resize Main Proxmox Drive
+
+## Objective
+Resize the main Proxmox drive and logical volumes to manage space efficiently.
+
+## Steps
+1. Identify the main partition (`/dev/sda3`).
+2. Boot into a live CD/USB to resize partitions.
+3. Use `pvresize` to resize the physical volume.
+4. Extend logical volumes with `lvextend`.
+5. Resize filesystems with `resize2fs` for ext4 or `xfs_growfs` for XFS.
+
+## Commands Database
+| Step | Command |
+|------|---------|
+| Check partitions | `lsblk` |
+| Resize physical volume | `pvresize /dev/sda3` |
+| Extend logical volume | `lvextend -l +100%FREE /dev/pve/root` |
+| Resize ext4 filesystem | `resize2fs /dev/pve/root` |
+| Resize XFS filesystem | `xfs_growfs /` |
+
+## Example Commands
+```bash
+lsblk
+pvresize /dev/sda3
+lvextend -l +100%FREE /dev/pve/root
+resize2fs /dev/pve/root
+xfs_growfs /
