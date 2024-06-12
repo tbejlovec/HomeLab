@@ -1,0 +1,36 @@
+Summary:
+
+    Install Linux server for VM and container use.
+    Configured the server with necessary services and security.
+
+Crucial Changes and Configurations:
+
+    Initial Setup:
+        Update and upgrade the system.
+        Configure apt sources list to remove cdrom entry.
+
+    Install and Configure Services:
+        Install xrdp, openssh-server, and ufw.
+        Allow necessary ports in ufw
+
+
+# Update and Upgrade System
+apt update
+apt upgrade
+
+# Edit Sources List
+nano /etc/apt/sources.list
+# Comment out or remove `cdrom` line
+apt update
+
+# Install and Configure Services
+apt install xrdp openssh-server ufw -y
+systemctl enable xrdp
+systemctl start xrdp
+systemctl enable ssh
+systemctl start ssh
+
+# Configure Firewall
+ufw allow 22/tcp
+ufw allow 3389/tcp
+ufw enable
