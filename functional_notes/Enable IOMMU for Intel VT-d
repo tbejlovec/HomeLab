@@ -1,0 +1,22 @@
+# Proxmox and VM Configuration
+
+## Proxmox Setup
+
+### Enable IOMMU for Intel VT-d
+```bash
+# Edit the grub configuration file
+sudo nano /etc/default/grub
+# Add or modify the following line:
+GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on"
+
+# Add the following lines to the modules configuration file
+sudo nano /etc/modules
+# Add:
+vfio
+vfio_iommu_type1
+vfio_pci
+kvmgt
+
+# Update the initramfs to apply changes
+sudo update-initramfs -u
+
