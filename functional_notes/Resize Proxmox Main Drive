@@ -26,3 +26,68 @@ pvresize /dev/sda3
 lvextend -l +100%FREE /dev/pve/root
 resize2fs /dev/pve/root
 xfs_growfs /
+
+
+
+--------------
+
+### Note 2: Wipe a Partition on Proxmox Drive
+```markdown
+# Wipe a Partition on Proxmox Drive
+
+## Objective
+Wipe a specific partition on the same Proxmox drive.
+
+## Steps
+1. Identify the partition to wipe using `lsblk`.
+2. Unmount the partition if necessary.
+3. Use `fdisk` or `parted` to delete the partition.
+4. Wipe the partition using `dd` command.
+5. Optionally recreate the partition if needed.
+
+## Commands Database
+| Step | Command |
+|------|---------|
+| Identify partitions | `lsblk` |
+| Unmount partition | `umount /dev/sda2` |
+| Delete partition | `fdisk /dev/sda` (interactive) or `parted /dev/sda` (interactive) |
+| Wipe partition | `dd if=/dev/zero of=/dev/sda2 bs=1M status=progress` |
+| Recreate partition | `fdisk /dev/sda` (interactive) or `parted /dev/sda` (interactive) |
+
+## Example Commands
+```bash
+lsblk
+umount /dev/sda2
+fdisk /dev/sda
+dd if=/dev/zero of=/dev/sda2 bs=1M status=progress
+
+
+
+-------------
+
+### Note 3: Adjusting Windows Volumes in a VM through Proxmox Command Line
+```markdown
+# Adjusting Windows Volumes in a VM through Proxmox Command Line
+
+## Objective
+Resize Windows VM disk and extend partition within Windows.
+
+## Steps
+1. Identify the VM disk using `qm list` and `qm config`.
+2. Resize the VM disk with `qm resize`.
+3. Start the VM and extend the partition using Windows Disk Management.
+
+## Commands Database
+| Step | Command |
+|------|---------|
+| List VMs | `qm list` |
+| VM configuration | `qm config 101` |
+| Resize VM disk | `qm resize 101 scsi0 160G` |
+| Start VM | `qm start 101` |
+
+## Example Commands
+```bash
+qm list
+qm config 101
+qm resize 101 scsi0 160G
+qm start 101
