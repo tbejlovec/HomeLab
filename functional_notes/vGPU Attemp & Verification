@@ -1,0 +1,21 @@
+Summary:
+
+   - Set up GPU passthrough from a Windows 11 host to a Hyper-V VM.
+   - Utilize Discrete Device Assignment (DDA) to dedicate GPU to VM.
+
+Crucial Changes and Configurations:
+
+# Identify and Disable GPU
+Get-PnpDevice -PresentOnly | Where-Object { $_.InstanceId -match '^PCI' }
+Disable-PnpDevice -InstanceId "PCI\VEN_XXXX&DEV_XXXX&SUBSYS_XXXXXXXX&REV_XX\4&XXXXXXXX&0&XXXX" -Confirm:$false
+
+# Dismount and Assign GPU to VM
+Dismount-VMHostAssignableDevice -LocationPath "PCI\VEN_XXXX&DEV_XXXX&SUBSYS_XXXXXXXX&REV_XX\4&XXXXXXXX&0&XXXX"
+Add-VMAssignableDevice -LocationPath "PCI\VEN_XXXX&DEV_XXXX&SUBSYS_XXXXXXXX&REV_XX\4&XXXXXXXX&0&XXXX" -VMName "YourVMName"
+
+# Configure VM for DDA
+Set-VMFirmware -VMName "YourVMName" -EnableSecureBoot Off
+Set-VM -GuestControlledCacheTypes $true -LowMemoryMappedIoSpace 3GB -HighMemoryMappedIoSpace 33280MB -VMName "YourVMName"
+
+# Start VM
+Start-VM -Name "YourVMName"
