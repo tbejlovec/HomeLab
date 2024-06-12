@@ -1,0 +1,22 @@
+# Backup and Restore
+
+## Steps to Restore VM from Backup
+
+1. **Upload Backup File:**
+   - Go to `Datacenter` > `Node` > `local` > `Content`.
+   - Click `Upload` and select `Backup file`.
+
+2. **Restore VM from Backup:**
+   - Locate uploaded backup file.
+   - Select backup file and click `Restore`.
+   - Configure target storage and other settings.
+
+3. **Verify Restored VM:**
+   - Go to `Node` > `Virtual Machine`.
+   - Start VM and access console to verify.
+
+4. **Attach Second SSD as Additional Storage to Restored VM (if needed):**
+   - Shut down VM.
+   - Go to `Node` > `Your VM` > `Hardware`.
+   - Add second SSD as hard disk.
+   - Start VM and configure second SSD as in `VM_Preparation.md`, Step 4.
