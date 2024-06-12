@@ -12,7 +12,8 @@ Crucial Changes and Configurations:
     Install and Configure Services:
         Install xrdp, openssh-server, and ufw.
         Allow necessary ports in ufw
-
+-------------------------------------------------------------------------
+Initial Set-up
 
 # Update and Upgrade System
 apt update
@@ -22,9 +23,14 @@ apt upgrade
 nano /etc/apt/sources.list
 # Comment out or remove `cdrom` line
 apt update
+-------------------------------------------------------------------------
+Install and Configure Services
 
-# Install and Configure Services
+
+# Install Services
 apt install xrdp openssh-server ufw -y
+
+# Enable and Start Services
 systemctl enable xrdp
 systemctl start xrdp
 systemctl enable ssh
