@@ -20,3 +20,7 @@ kvmgt
 # Update the initramfs to apply changes
 sudo update-initramfs -u
 
+Configure VM for GPU Passthrough
+# Edit the VM configuration file at /etc/pve/qemu-server/<VMID>.conf
+hostpci0: 01:00.0,pcie=1
+
