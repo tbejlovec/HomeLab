@@ -1,0 +1,34 @@
+Example script for partitioning and formatting new SSDs
+
+#!/bin/bash
+
+# Variables
+DISK="/dev/sdb"
+PARTITION="${DISK}1"
+MOUNT_POINT="/mnt/storage"
+
+# Unmount the disk if mounted
+umount $PARTITION
+
+# Create a new partition table
+echo "Creating a new partition table on $DISK..."
+parted $DISK mklabel gpt
+
+# Create a new partition
+echo "Creating a new partition on $DISK..."
+parted $DISK mkpart primary ext4 0% 100%
+
+# Format the new partition
+echo "Formatting the partition $PARTITION..."
+mkfs.ext4 $PARTITION
+
+# Create a mount point and mount the partition
+echo "Mounting the partition $PARTITION at $MOUNT_POINT..."
+mkdir -p $MOUNT_POINT
+mount $PARTITION $MOUNT_POINT
+
+# Add to /etc/fstab
+echo "Adding $PARTITION to /etc/fstab..."
+echo "$PARTITION $MOUNT_POINT ext4 defaults 0 2" >> /etc/fstab
+
+echo "Partitioning and formatting completed successfully!"
