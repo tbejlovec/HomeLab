@@ -1,0 +1,34 @@
+Script Execution and Validation
+
+Running a Script in Admin PowerShell to test hardware status:
+
+# Open PowerShell as Administrator
+cd "C:\path\to\your\script"
+.\yourscript.ps1
+
+Get-WmiObject -Query "SELECT * FROM Win32_Processor" | Select-Object Name, SecondLevelAddressTranslationExtensions, VirtualizationFirmwareEnabled, VMMonitorModeExtensions
+Get-ComputerInfo | Select-Object -Property CsName, OsName, WindowsVersion, WindowsBuildLabEx, OsArchitecture, HyperVRequirementDataExecutionPreventionAvailable, HyperVRequirementSecondLevelAddressTranslation, HyperVRequirementVirtualizationFirmwareEnabled, HyperVRequirementVMMonitorModeExtensions
+
+CMD:
+coreinfo.exe -v
+
+# Change/Allow Execution Policy in Windows 11
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+Set-ExecutionPolicy Unrestricted -Scope CurrentUser
+PowerShell -ExecutionPolicy Bypass -File "C:\path\to\your\script.ps1"
+
+Disabled hypervisor launch type:
+powershell:
+bcdedit /set hypervisorlaunchtype off
+
+Re-enable Hyper-V:
+
+powershell:
+bcdedit /set hypervisorlaunchtype auto
+
+
+Script from GitHub:
+    Downloaded and saved SurveyDDA.ps1.
+    Encountered errors due to script not being digitally signed.
+    Adjusted execution policy to Unrestricted.
+
