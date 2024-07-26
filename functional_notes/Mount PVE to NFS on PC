@@ -1,0 +1,53 @@
+Back up a Proxmox machine to an external drive.
+
+Steps Taken:
+
+Connect and Mount External Drive:
+
+Connected the external drive and identified it using lsblk.
+Created a mount point and mounted the drive using mount.
+Configure Backup Storage in Proxmox:
+
+Added the mounted directory as storage in Proxmox.
+Configured a backup job to use the new storage.
+Crucial Commands:
+
+Create mount point:
+bash
+Copy code
+mkdir /mnt/external-backup
+Mount external drive:
+bash
+Copy code
+mount /dev/sdb1 /mnt/external-backup
+Outcome:
+
+Successfully configured backup to an external drive and scheduled a backup job.
+Project Note 3: Mount Windows Shared Folder on Proxmox for Backup
+Objective: Mount a shared folder from a Windows machine on Proxmox for backup purposes.
+
+
+-------------------------------
+Steps Taken:
+
+Share the Folder on Windows:
+
+Configured sharing settings for the folder "Shared" on the Windows desktop.
+Mount the Shared Folder on Proxmox:
+
+Installed cifs-utils.
+Created a mount point and mounted the shared folder using mount.
+Add Mounted Directory as Storage in Proxmox:
+
+Added the mounted directory as storage in the Proxmox web interface.
+Configured backup jobs to use the new storage.
+Crucial Commands:
+
+Install CIFS utilities:
+apt-get install cifs-utils
+
+Create mount point:
+mkdir /mnt/shared-backup
+
+Mount shared Folder
+mount -t cifs //192.168.*.*/Shared /mnt/shared-backup -o username="",password="",vers=3.0
