@@ -1,0 +1,35 @@
+Check Network Connection:
+
+Verified both machines are connected to the network and can communicate.
+Ping test to confirm connectivity.
+Verify RDP Settings:
+
+Ensured Remote Desktop is enabled.
+Checked firewall settings to allow RDP connections.
+Verify User Permissions:
+
+Ensured the user account is part of the "Remote Desktop Users" group.
+Check IP Address and Computer Name:
+
+Confirmed correct IP address and computer name.
+Update Windows:
+
+Ensured both machines have the latest updates.
+Verify RDP Port:
+
+Checked that port 3389 is open.
+Restart Remote Desktop Service:
+
+Restarted the Remote Desktop service on the remote machine.
+Check for Multiple Sessions:
+
+Verified if there are limits on simultaneous RDP sessions.
+Use Correct Credentials:
+
+Confirmed correct username and password format.
+Verify Group Policy Settings:
+
+Checked group policies that might restrict RDP access.
+Outcome:
+
+Issue with credentials was identified and resolved by ensuring correct format and settings.
