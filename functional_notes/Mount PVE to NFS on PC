@@ -13,14 +13,11 @@ Configured a backup job to use the new storage.
 Crucial Commands:
 
 Create mount point:
-bash
-Copy code
 mkdir /mnt/external-backup
+
 Mount external drive:
-bash
-Copy code
 mount /dev/sdb1 /mnt/external-backup
-Outcome:
+
 
 Successfully configured backup to an external drive and scheduled a backup job.
 Project Note 3: Mount Windows Shared Folder on Proxmox for Backup
