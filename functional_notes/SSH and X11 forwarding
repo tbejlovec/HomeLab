@@ -1,0 +1,91 @@
+Project Note: Enabling SSH Access and Resolving Hostname Issues
+Summary of Work Done:
+
+Troubleshooted SSH access issues related to hostname resolution.
+Verified hostname and DNS settings.
+Suggested using IP address directly instead of hostname.
+Updated /etc/hosts for local hostname resolution.
+Restarted network services to apply changes.
+
+Crucial Changes:
+Verified and corrected hostname configurations.
+Used direct IP address for SSH connections.
+Ensured proper DNS settings in /etc/resolv.conf.
+
+--------------------------------
+Project Note: Ensuring SSH Service is Enabled
+Summary of Work Done:
+
+Installed OpenSSH server on the VM.
+Enabled and started the SSH service.
+Verified SSH service status.
+Checked SSH port to ensure it is listening.
+Configured firewall to allow SSH traffic.
+Checked and edited SSH configuration file (/etc/ssh/sshd_config).
+
+Crucial Changes:
+Installation of OpenSSH server.
+Configuration of SSH to start on boot.
+Firewall adjustments to allow SSH traffic.
+
+--------------------------------
+Project Note: Launching GUI on Linux Mint VM via SSH and RDP
+Summary of Work Done:
+
+Attempted to launch GUI via RDP, resulting in command line access only.
+Suggested X11 forwarding for GUI access over SSH.
+Provided steps to install and configure Xfce desktop environment and xrdp.
+Troubleshooted issues related to launching GUI via RDP.
+Crucial Changes:
+
+Installation of Xfce and xrdp.
+Configuration of ~/.xsession and /etc/xrdp/startwm.sh for Xfce.
+Opened firewall for RDP port (3389).
+
+--------------------------------
+Project Note: Enabling X11 Forwarding for GUI Applications Over SSH
+Summary of Work Done:
+
+Explained how to use X11 forwarding to run GUI applications over SSH.
+Provided steps to install and configure X11 on both local and remote machines.
+Configured SSH server for X11 forwarding.
+Verified $DISPLAY variable to ensure X11 forwarding is working.
+
+Crucial Changes:
+Enabled X11 forwarding in SSH server configuration.
+Installed necessary X11 packages on remote server.
+Configured local SSH client for X11 forwarding.
+
+
+--------------------------------
+
+Install Xfce Desktop Environment and xrdp:
+sudo apt update
+sudo apt install xfce4 xfce4-goodies xrdp
+
+Configure xrdp to Use Xfce:
+
+Create/edit ~/.xsession
+echo xfce4-session > ~/.xsession
+chmod +x ~/.xsession
+
+Edit /etc/xrdp/startwm.sh
+sudo nano /etc/xrdp/startwm.sh
+startxfce4
+
+Restart xrdp and Open Firewall for RDP
+sudo systemctl restart xrdp
+sudo ufw allow 3389
+sudo ufw reload
+
+
+--------------------------------
+X11 Forwarding Setup:
+ssh -X user@your-server-ip
+sudo apt install xauth xorg
+echo $DISPLAY
+
+
+
+
+
